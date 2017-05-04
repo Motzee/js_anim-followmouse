@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Animations CSS</title>
+    <!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+    <!--si t'es un vieux navigateur, t'as besoin de ça pour comprendre la nouvelle ossature de page issue de html5-->
+
+    <style>
+        /* Statuts initial */
+        body {
+            margin: 0;
+            padding: 0;
+            min-width : 100% ;
+            min-height : 100vh ;
+        }
+
+        #rarity {
+            background: url("rarity__sprite_by_perfectsyntax-daqf09f.png") no-repeat left top;
+            animation: rarity-droite 1s steps(1) infinite;
+            background-size: 288px 512px;
+            width: 96px;
+            height: 128px;
+            position: absolute;
+            left : 0 ;
+            top : 40 ;
+        }
+
+        /* Animation Rarity */
+        @keyframes rarity-droite {
+            0% {
+                background-position: -96px -256px;
+            }
+            25% {
+                background-position: 0 -256px;
+            }
+            50% {
+                background-position: -96px -256px;
+            }
+            75% {
+                background-position: -192px -256px;
+            }
+            100% {
+                background-position: -96px -256px;
+            }
+        }
+
+        </style>
+</head>
+
+<body>
+
+    <div id="rarity"></div>
+
+<script>
+    //placer un événement sur body
+
+    console.log("je suis avant !") 
+    let page = document.body ;
+
+    page.addEventListener("mousemove", function() {
+        //afficher la position de la souris dans la console    
+        let coordX = event.clientX ;
+        let coordY = event.clientY ;
+        console.log(coordX + " et " + coordY) ;
+
+        //Selectionner le block #rarity et changer la position
+        let rarityBouge = document.getElementById("rarity");
+        rarityBouge.style.left = coordX+"px" ;
+        rarityBouge.style.top = coordY+"px" ;
+
+    }) ;
+
+
+
+
+    </script>
+
+</body>
+
+</html>

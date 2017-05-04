@@ -19,7 +19,7 @@
         }
         
         #rarity {
-            background: url("rarity__sprite_by_perfectsyntax-daqf09f.png") no-repeat left top;
+            background: url("rarity__sprite_by_perfectsyntax-daqf09f.png") no-repeat;
             background-size: 288px 512px;
             width: 96px;
             height: 128px;
@@ -183,22 +183,29 @@
             rarityBouge.style.left = rarityPosLeft + "px";
         }
 
+        //Création d'une variable pour retenir l'orientation de Rarity
+        let orientationLicorne;
+
         //l'utilisation des boutons cliquables entraine un mouvement
         btnTop.addEventListener("click", function() {
             toTop();
             //nb : on ne peut pas directement mettre la fonction à côté de click, ça ne fonctionnne pas
+            orientationLicorne = "bas";
         });
 
         btnLeft.addEventListener("click", function() {
             toLeft();
+            orientationLicorne = "gauche";
         });
 
         btnRight.addEventListener("click", function() {
             toRight();
+            orientationLicorne = "droite";
         });
 
         btnBottom.addEventListener("click", function() {
             toBottom();
+            orientationLicorne = "haut";
         });
 
         //l'utilisation des flèches clavier entraine un mouvement identique
@@ -211,15 +218,19 @@
             switch (event.key) {
                 case "ArrowDown":
                     toBottom();
+                    orientationLicorne = "bas";
                     break;
                 case "ArrowUp":
-                    toTop()
+                    toTop();
+                    orientationLicorne = "haut";
                     break;
                 case "ArrowLeft":
                     toLeft();
+                    orientationLicorne = "gauche";
                     break;
                 case "ArrowRight":
                     toRight();
+                    orientationLicorne = "droite";
                     break;
                 default:
                     return; // Quit when this doesn't handle the key event.
@@ -230,6 +241,40 @@
         }, true);
 
         //La licorne arrête de marcher quand on sort des boutons ou si on arrête d'appuyer
+        let stopWalking = function() {
+            rarityBouge.style.animation = "none";
+            switch (orientationLicorne) {
+                case "haut":
+                    rarityBouge.style.backgroundPosition = "-96px -384px";
+                    break;
+                case "bas":
+                    rarityBouge.style.backgroundPosition = "-96px 0";
+                    break;
+                case "gauche":
+                    rarityBouge.style.backgroundPosition = "-96px -128px";
+                    break;
+                case "droite":
+                    rarityBouge.style.backgroundPosition = "-96px -256px";
+                    break;
+            }
+        }
+
+        btnTop.addEventListener("mouseleave", function() {
+            stopWalking();
+        });
+        btnBottom.addEventListener("mouseleave", function() {
+            stopWalking();
+        });
+        btnLeft.addEventListener("mouseleave", function() {
+            stopWalking();
+        });
+        btnRight.addEventListener("mouseleave", function() {
+            stopWalking();
+        });
+
+        window.addEventListener("keyup", function() {
+            stopWalking();
+        });
     </script>
 
 </body>
